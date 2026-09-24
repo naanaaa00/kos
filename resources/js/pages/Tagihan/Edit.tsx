@@ -1,0 +1,17 @@
+import { useEffect, type FormEventHandler } from 'react';
+import { Link, useForm } from '@inertiajs/react';
+import { Loader2, Save, X } from 'lucide-react';
+import { index, update } from '@/routes/sewa/tagihan';
+import { CurrencyInput, fieldClass, FormField } from '@/components/form-field';
+import { TransactionFormShell } from '@/components/transaction-form-shell';
+
+interface Tagihan { id: number; tanggal: string; jumlah: number; jatuh_tempo: string; status_tagihan: string; discount: number; denda: number; sewa_id: number; sewa: { room: { harga: number } } }
+export default function Edit({ tagihan }: { tagihan: Tagihan }) {
+    const { data, setData, put, processing, errors } = useForm({ tanggal: tagihan.tanggal.slice(0, 10), jumlah: String(tagihan.jumlah), jatuh_tempo: tagihan.jatuh_tempo.slice(0, 10), status_tagihan: tagihan.status_tagihan, discount: String(tagihan.discount), denda: String(tagihan.denda) });
+    const total = Math.max(0, tagihan.sewa.room.harga - Number(data.discount || 0) + Number(data.denda || 0));
+    useEffect(() => { setData('jumlah', String(total)); }, [total]);
+    const submit: FormEventHandler = (event) => { event.preventDefault(); put(update({ sewa: tagihan.sewa_id, tagihan: tagihan.id }).url); };
+    return <TransactionFormShell title="Edit Tagihan" description={`Perbarui tagihan #${tagihan.id}.`} active="tagihan" sewaId={tagihan.sewa_id}><form onSubmit={submit} className="space-y-6 p-6"><InvoiceFields data={data} setData={setData} errors={errors} total={total} /><div className="flex justify-end gap-3 border-t border-neutral-200 pt-5"><Link href={index(tagihan.sewa_id)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm"><X className="h-4 w-4" />Batal</Link><button type="submit" disabled={processing} className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-5 py-2 text-sm text-white disabled:opacity-50">{processing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}Simpan</button></div></form></TransactionFormShell>;
+}
+function InvoiceFields({ data, setData, errors, total }: { data: Record<string, string>; setData: (key: string, value: string) => void; errors: Record<string, string>; total: number }) { return <div className="grid grid-cols-1 gap-5 md:grid-cols-2"><FormField label="Status" error={errors.status_tagihan}><select value={data.status_tagihan} onChange={(event) => setData('status_tagihan', event.target.value)} className={fieldClass}><option value="belum_bayar">Belum Bayar</option><option value="lunas">Lunas</option><option value="lewat_tempo">Lewat Tempo</option></select></FormField><FormField label="Tanggal Tagihan" error={errors.tanggal}><input type="date" value={data.tanggal} onChange={(event) => setData('tanggal', event.target.value)} className={fieldClass} /></FormField><FormField label="Jatuh Tempo" error={errors.jatuh_tempo}><input type="date" value={data.jatuh_tempo} onChange={(event) => setData('jatuh_tempo', event.target.value)} className={fieldClass} /></FormField><FormField label="Jumlah (Rp)" error={errors.jumlah}><CurrencyInput value={total} readOnly /></FormField><FormField label="Diskon (Rp)" error={errors.discount}><CurrencyInput value={data.discount} onChange={(value) => setData('discount', value)} /></FormField><FormField label="Denda (Rp)" error={errors.denda}><CurrencyInput value={data.denda} onChange={(value) => setData('denda', value)} /></FormField></div>; }
+Edit.layout = { breadcrumbs: [{ title: 'Transaksi', href: '/sewa' }, { title: 'Tagihan', href: '/sewa' }] };

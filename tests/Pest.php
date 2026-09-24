@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 /*
@@ -47,4 +50,24 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function userWithPermissions(array $permissions): User
+{
+    $role = Role::create([
+        'name' => 'test-role',
+        'guard_name' => 'web',
+    ]);
+
+    $role->syncPermissions(collect($permissions)->map(
+        fn (string $permission): Permission => Permission::create([
+            'name' => $permission,
+            'guard_name' => 'web',
+        ]),
+    ));
+
+    $user = User::factory()->create();
+    $user->assignRole($role);
+
+    return $user;
 }

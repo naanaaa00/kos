@@ -23,7 +23,7 @@ export function UserInfo({
                 <span className="truncate font-medium">{user.name}</span>
                 {showEmail && (
                     <span className="text-muted-foreground truncate text-xs">
-                        {user.email}
+                        {user.no_hp}
                     </span>
                 )}
             </div>

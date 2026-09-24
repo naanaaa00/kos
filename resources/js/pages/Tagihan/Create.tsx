@@ -1,0 +1,18 @@
+import { useEffect, type FormEventHandler } from 'react';
+import { Link, useForm } from '@inertiajs/react';
+import { Loader2, Save, X } from 'lucide-react';
+import { index, store } from '@/routes/sewa/tagihan';
+import { CurrencyInput, fieldClass, FormField } from '@/components/form-field';
+import { TransactionFormShell } from '@/components/transaction-form-shell';
+
+interface Sewa { id: number; tanggal_mulai: string; user: { name: string }; room: { no_kamar: string; harga: number } }
+export default function Create({ sewa }: { sewa: Sewa }) {
+    const { data, setData, post, processing, errors } = useForm({ tanggal: sewa.tanggal_mulai.slice(0, 10), jumlah: String(sewa.room.harga), jatuh_tempo: sewa.tanggal_mulai.slice(0, 10), status_tagihan: 'belum_bayar', discount: '0', denda: '0' });
+    const total = Math.max(0, sewa.room.harga - Number(data.discount || 0) + Number(data.denda || 0));
+    useEffect(() => { setData('jumlah', String(total)); }, [total]);
+    const submit: FormEventHandler = (event) => { event.preventDefault(); post(store(sewa.id).url); };
+    return <TransactionFormShell title="Tambah Tagihan" description={`Buat tagihan untuk ${sewa.user.name} - Kamar ${sewa.room.no_kamar}.`} active="tagihan" sewaId={sewa.id}><form onSubmit={submit} className="space-y-6 p-6"><InvoiceFields data={data} setData={setData} errors={errors} total={total} /><Actions href={index(sewa.id).url} processing={processing} /></form></TransactionFormShell>;
+}
+function InvoiceFields({ data, setData, errors, total }: { data: Record<string, string>; setData: (key: string, value: string) => void; errors: Record<string, string>; total: number }) { return <div className="grid grid-cols-1 gap-5 md:grid-cols-2"><FormField label="Status" error={errors.status_tagihan}><select value={data.status_tagihan} onChange={(event) => setData('status_tagihan', event.target.value)} className={fieldClass}><option value="belum_bayar">Belum Bayar</option><option value="lunas">Lunas</option><option value="lewat_tempo">Lewat Tempo</option></select></FormField><FormField label="Tanggal Tagihan" error={errors.tanggal}><input type="date" value={data.tanggal} readOnly className={fieldClass} /></FormField><FormField label="Jatuh Tempo" error={errors.jatuh_tempo}><input type="date" value={data.jatuh_tempo} readOnly className={fieldClass} /></FormField><FormField label="Jumlah (Rp)" error={errors.jumlah}><CurrencyInput value={total} readOnly /></FormField><FormField label="Diskon (Rp)" error={errors.discount}><CurrencyInput value={data.discount} onChange={(value) => setData('discount', value)} /></FormField><FormField label="Denda (Rp)" error={errors.denda}><CurrencyInput value={data.denda} onChange={(value) => setData('denda', value)} /></FormField></div>; }
+function Actions({ href, processing }: { href: string; processing: boolean }) { return <div className="flex justify-end gap-3 border-t border-neutral-200 pt-5"><Link href={href} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm"><X className="h-4 w-4" />Batal</Link><button type="submit" disabled={processing} className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-5 py-2 text-sm text-white disabled:opacity-50">{processing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}Simpan</button></div>; }
+Create.layout = { breadcrumbs: [{ title: 'Transaksi', href: '/sewa' }, { title: 'Tagihan', href: '/sewa' }] };

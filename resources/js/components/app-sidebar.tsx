@@ -1,5 +1,5 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, ClipboardList, FolderGit2, LayoutGrid, ShieldCheck } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -14,6 +14,10 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { index as kamarIndex } from '@/routes/kamar';
+import { index as sewaIndex } from '@/routes/sewa';
+import { index as usersIndex } from '@/routes/users';
+import { index as rolesIndex } from '@/routes/roles';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
@@ -24,8 +28,27 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Users',
-        href: '/users',
+        href: usersIndex(),
         icon: LayoutGrid,
+        permission: 'users.view',
+    },
+    {
+        title: 'Kamar',
+        href: kamarIndex(),
+        icon: LayoutGrid,
+        permission: 'kamar.view',
+    },
+    {
+        title: 'Transaksi',
+        href: sewaIndex(),
+        icon: ClipboardList,
+        permission: 'sewa.view',
+    },
+    {
+        title: 'Roles & Permission',
+        href: rolesIndex(),
+        icon: ShieldCheck,
+        permission: 'roles.manage',
     },
 ];
 
@@ -43,6 +66,15 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { auth } = usePage().props;
+    const permissions = auth.user?.permissions ?? [];
+
+    const visibleMainNavItems = mainNavItems.filter(
+        (item) =>
+            (!item.permission || permissions.includes(item.permission)) &&
+            (!item.roles || item.roles.some((role) => auth.user?.roles.includes(role))),
+    );
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -58,7 +90,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={visibleMainNavItems} />
             </SidebarContent>
 
             <SidebarFooter>

@@ -39,7 +39,11 @@ export default function Login({ status, canResetPassword }: Props) {
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="tel"
+                                    inputMode="numeric"
                                     placeholder="08xxxxxxxxxx"
+                                    onChange={(event) => {
+                                        event.currentTarget.value = event.currentTarget.value.replace(/\D/g, '');
+                                    }}
                                 />
                                 <InputError message={errors.no_hp} />
                             </div>
