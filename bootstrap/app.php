@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Vercel menghantarkan request ke PHP via HTTP; percaya header proxy
+        // (X-Forwarded-Proto/Host) agar URL asset di-generate sebagai https.
+        $middleware->trustProxies(at: '*');
+
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         $middleware->validateCsrfTokens(except: ['api/webhooks/midtrans']);
