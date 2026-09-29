@@ -26,6 +26,10 @@ export default defineConfig({
         tailwindcss(),
         wayfinder({
             formVariants: true,
+            // Di Vercel tidak ada PHP — pakai file hasil generate yang di-commit.
+            ...(process.env.VERCEL
+                ? { command: 'node -e "process.exit(0)"' }
+                : {}),
         }),
     ]),
     server: {
