@@ -1,6 +1,6 @@
+import MidtransNotificationController from './MidtransNotificationController'
 import TagihanBayarSelesaiController from './TagihanBayarSelesaiController'
 import TagihanBayarController from './TagihanBayarController'
-import MidtransNotificationController from './MidtransNotificationController'
 import UserController from './UserController'
 import SewaController from './SewaController'
 import TagihanController from './TagihanController'
@@ -10,9 +10,9 @@ import KamarController from './KamarController'
 import TagihanWaReminderController from './TagihanWaReminderController'
 import Settings from './Settings'
 const Controllers = {
-    TagihanBayarSelesaiController: Object.assign(TagihanBayarSelesaiController, TagihanBayarSelesaiController),
+    MidtransNotificationController: Object.assign(MidtransNotificationController, MidtransNotificationController),
+TagihanBayarSelesaiController: Object.assign(TagihanBayarSelesaiController, TagihanBayarSelesaiController),
 TagihanBayarController: Object.assign(TagihanBayarController, TagihanBayarController),
-MidtransNotificationController: Object.assign(MidtransNotificationController, MidtransNotificationController),
 UserController: Object.assign(UserController, UserController),
 SewaController: Object.assign(SewaController, SewaController),
 TagihanController: Object.assign(TagihanController, TagihanController),

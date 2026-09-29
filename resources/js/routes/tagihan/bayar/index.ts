@@ -180,7 +180,7 @@ show.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { i
     
     show.form = showForm
 /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
 export const lunas = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -194,7 +194,7 @@ lunas.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
 lunas.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -226,7 +226,7 @@ lunas.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { i
 }
 
 /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
 lunas.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -234,7 +234,7 @@ lunas.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { i
     method: 'get',
 })
 /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
 lunas.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -243,7 +243,7 @@ lunas.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { 
 })
 
     /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
     const lunasForm = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -252,7 +252,7 @@ lunas.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { 
     })
 
             /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
         lunasForm.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -260,7 +260,7 @@ lunas.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { 
             method: 'get',
         })
             /**
- * @see routes/web.php:28
+ * @see routes/web.php:27
  * @route '/bayar/{tagihan}/lunas'
  */
         lunasForm.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

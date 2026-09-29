@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\KamarController;
-use App\Http\Controllers\MidtransNotificationController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SewaController;
@@ -29,10 +28,7 @@ Route::get('bayar/{tagihan}/lunas', function (Tagihan $tagihan) {
     return response()->view('bayar.sudah-lunas', ['tagihan' => $tagihan]);
 })->name('tagihan.bayar.lunas');
 
-// Webhook Midtrans: tanpa auth, signature diverifikasi di dalam controller.
-// Path mengikuti URL yang terdaftar di dashboard Midtrans.
-Route::post('api/webhooks/midtrans', MidtransNotificationController::class)
-    ->name('midtrans.notification');
+// Webhook Midtrans kini ada di routes/api.php (URL sama: api/webhooks/midtrans).
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

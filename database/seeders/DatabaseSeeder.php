@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -36,10 +35,6 @@ class DatabaseSeeder extends Seeder
             fn (Permission $permission): bool => str_ends_with($permission->name, '.view'),
         ));
 
-        $user = User::factory()->create([
-            'name' => 'Test User',
-        ]);
-
-        $user->assignRole($admin);
+        $this->call(AdminUserSeeder::class);
     }
 }

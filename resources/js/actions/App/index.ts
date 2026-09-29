@@ -1,8 +1,8 @@
-import WelcomeController from './WelcomeController'
 import Http from './Http'
+import WelcomeController from './WelcomeController'
 const App = {
-    WelcomeController: Object.assign(WelcomeController, WelcomeController),
-Http: Object.assign(Http, Http),
+    Http: Object.assign(Http, Http),
+WelcomeController: Object.assign(WelcomeController, WelcomeController),
 }
 
 export default App
