@@ -1,7 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, ClipboardList, FolderGit2, LayoutGrid, ShieldCheck } from 'lucide-react';
+import {
+    BedDouble,
+    LayoutDashboard,
+    ReceiptText,
+    ShieldCheck,
+    Users,
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -24,24 +29,24 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
-        icon: LayoutGrid,
+        icon: LayoutDashboard,
     },
     {
         title: 'Users',
         href: usersIndex(),
-        icon: LayoutGrid,
+        icon: Users,
         permission: 'users.view',
     },
     {
         title: 'Kamar',
         href: kamarIndex(),
-        icon: LayoutGrid,
+        icon: BedDouble,
         permission: 'kamar.view',
     },
     {
         title: 'Transaksi',
         href: sewaIndex(),
-        icon: ClipboardList,
+        icon: ReceiptText,
         permission: 'sewa.view',
     },
     {
@@ -52,19 +57,6 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
-
 export function AppSidebar() {
     const { auth } = usePage().props;
     const permissions = auth.user?.permissions ?? [];
@@ -72,7 +64,8 @@ export function AppSidebar() {
     const visibleMainNavItems = mainNavItems.filter(
         (item) =>
             (!item.permission || permissions.includes(item.permission)) &&
-            (!item.roles || item.roles.some((role) => auth.user?.roles.includes(role))),
+            (!item.roles ||
+                item.roles.some((role) => auth.user?.roles.includes(role))),
     );
 
     return (
@@ -94,7 +87,6 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

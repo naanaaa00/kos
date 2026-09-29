@@ -18,12 +18,22 @@ class SewaController extends Controller
     {
         $user = $request->user();
 
+        $validated = $request->validate([
+            'status' => ['nullable', Rule::in(['aktif', 'selesai'])],
+        ]);
+
         return Inertia::render('Sewa/Index', [
             'sewas' => Sewa::query()
                 ->with(['user', 'room'])
                 ->when(! $user->can('sewa.update'), fn ($query) => $query->where('user_id', $user->id))
+                ->when($validated['status'] ?? null, function ($query, string $status): void {
+                    // Sewa aktif berarti periode sewanya belum berakhir.
+                    $query->whereDate('tanggal_selesai', $status === 'aktif' ? '>=' : '<', today());
+                })
                 ->latest('id')
-                ->get(),
+                ->paginate(10)
+                ->withQueryString(),
+            'filters' => ['status' => $validated['status'] ?? null],
         ]);
     }
 
@@ -53,14 +63,7 @@ class SewaController extends Controller
             $sewa = Sewa::create($validated);
             $room->update(['ketersediaan' => false]);
 
-            $sewa->tagihans()->create([
-                'tanggal' => $validated['tanggal_mulai'],
-                'jumlah' => $room->harga,
-                'jatuh_tempo' => $validated['tanggal_mulai'],
-                'status_tagihan' => 'belum_bayar',
-                'discount' => 0,
-                'denda' => 0,
-            ]);
+            $this->buatTagihanBulanan($sewa, $room);
         });
 
         return to_route('sewa.index')->with('success', 'Data sewa berhasil dibuat.');
@@ -116,6 +119,29 @@ class SewaController extends Controller
         }
 
         return to_route('sewa.index')->with('success', 'Data sewa berhasil dihapus.');
+    }
+
+    /**
+     * Buat satu tagihan per bulan sewa. Jatuh tempo tiap tagihan mengikuti
+     * tanggal_mulai sewa (mis. sewa 10 Jan -> jatuh tempo 10 Jan, 10 Feb, dst.),
+     * sampai jatuh tempo terakhir tidak melewati tanggal_selesai.
+     */
+    private function buatTagihanBulanan(Sewa $sewa, Kamar $room): void
+    {
+        $tagihans = [];
+
+        for ($jatuhTempo = $sewa->tanggal_mulai; $jatuhTempo <= $sewa->tanggal_selesai; $jatuhTempo = $jatuhTempo->addMonth()) {
+            $tagihans[] = [
+                'tanggal' => $jatuhTempo->toDateString(),
+                'jumlah' => $room->harga,
+                'jatuh_tempo' => $jatuhTempo->toDateString(),
+                'status_tagihan' => 'belum_bayar',
+                'discount' => 0,
+                'denda' => 0,
+            ];
+        }
+
+        $sewa->tagihans()->createMany($tagihans);
     }
 
     /** @return array<string, array<int, mixed>> */

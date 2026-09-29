@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use App\TipeKamar;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -11,47 +12,59 @@ use Inertia\Response;
 
 class KamarController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $validated = $request->validate([
+            'tipe' => ['nullable', Rule::enum(TipeKamar::class)],
+            'ketersediaan' => ['nullable', Rule::in(['tersedia', 'terisi'])],
+        ]);
+
         return Inertia::render('Kamar/Index', [
-            'kamars' => Kamar::query()->latest('id')->get(),
+            'kamars' => Kamar::query()
+                ->when(
+                    $validated['tipe'] ?? null,
+                    fn ($query, string $tipe) => $query->where('tipe', $tipe),
+                )
+                ->when(
+                    $validated['ketersediaan'] ?? null,
+                    fn ($query, string $ketersediaan) => $query->where('ketersediaan', $ketersediaan === 'tersedia'),
+                )
+                ->latest('id')
+                ->paginate(10)
+                ->withQueryString(),
+            'filters' => [
+                'tipe' => $validated['tipe'] ?? null,
+                'ketersediaan' => $validated['ketersediaan'] ?? null,
+            ],
+            'tipeOptions' => TipeKamar::options(),
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('Kamar/Create');
+        return Inertia::render('Kamar/Create', [
+            'tipeOptions' => TipeKamar::options(),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'no_kamar' => ['required', 'string', 'max:20', 'unique:kamar,no_kamar'],
-            'harga' => ['required', 'integer', 'min:0'],
-            'fasilitas' => ['required', 'string'],
-            'ketersediaan' => ['required', 'boolean'],
-        ]);
-
-        Kamar::create($validated);
+        Kamar::create($request->validate($this->rules()));
 
         return to_route('kamar.index')->with('success', 'Kamar berhasil dibuat.');
     }
 
     public function edit(Kamar $kamar): Response
     {
-        return Inertia::render('Kamar/Edit', ['kamar' => $kamar]);
+        return Inertia::render('Kamar/Edit', [
+            'kamar' => $kamar,
+            'tipeOptions' => TipeKamar::options(),
+        ]);
     }
 
     public function update(Request $request, Kamar $kamar): RedirectResponse
     {
-        $validated = $request->validate([
-            'no_kamar' => ['required', 'string', 'max:20', Rule::unique('kamar', 'no_kamar')->ignore($kamar)],
-            'harga' => ['required', 'integer', 'min:0'],
-            'fasilitas' => ['required', 'string'],
-            'ketersediaan' => ['required', 'boolean'],
-        ]);
-
-        $kamar->update($validated);
+        $kamar->update($request->validate($this->rules($kamar)));
 
         return to_route('kamar.index')->with('success', 'Kamar berhasil diperbarui.');
     }
@@ -61,5 +74,23 @@ class KamarController extends Controller
         $kamar->delete();
 
         return to_route('kamar.index')->with('success', 'Kamar berhasil dihapus.');
+    }
+
+    /** @return array<string, array<int, mixed>> */
+    private function rules(?Kamar $kamar = null): array
+    {
+        $uniqueNoKamar = Rule::unique('kamar', 'no_kamar');
+
+        if ($kamar !== null) {
+            $uniqueNoKamar->ignore($kamar);
+        }
+
+        return [
+            'no_kamar' => ['required', 'string', 'max:20', $uniqueNoKamar],
+            'tipe' => ['required', Rule::enum(TipeKamar::class)],
+            'harga' => ['required', 'integer', 'min:0'],
+            'fasilitas' => ['required', 'string'],
+            'ketersediaan' => ['required', 'boolean'],
+        ];
     }
 }

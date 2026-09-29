@@ -39,38 +39,38 @@ class PembayaranController extends Controller
             return back()->withErrors(['tagihan_id' => 'Tagihan ini sudah memiliki pembayaran.']);
         }
 
-        DB::transaction(function () use ($request, $tagihan): void {
-            $validated = $request->validate($this->rules());
-            $validated['jumlah'] = $tagihan->jumlah;
+        $validated = $request->validate($this->rules());
 
-            $tagihan->payment()->create($validated);
+        DB::transaction(function () use ($validated, $tagihan): void {
+            $tagihan->payment()->create(array_merge($validated, ['jumlah' => $tagihan->jumlah]));
             $tagihan->update(['status_tagihan' => 'lunas']);
         });
 
         return to_route('tagihan.pembayaran.index', $tagihan)->with('success', 'Pembayaran berhasil dibuat.');
     }
 
-    public function edit(Pembayaran $pembayaran): Response
+    // Rute nested resource menyuntikkan {tagihan} sebelum {pembayaran}, jadi urutan parameter harus sesuai.
+    public function edit(Tagihan $tagihan, Pembayaran $pembayaran): Response
     {
         return Inertia::render('Pembayaran/Edit', ['pembayaran' => $pembayaran->load('tagihan.sewa.user', 'tagihan.sewa.room')]);
     }
 
-    public function update(Request $request, Pembayaran $pembayaran): RedirectResponse
+    public function update(Request $request, Tagihan $tagihan, Pembayaran $pembayaran): RedirectResponse
     {
         $validated = $request->validate($this->rules());
-        $validated['jumlah'] = $pembayaran->tagihan->jumlah;
+        $validated['jumlah'] = $tagihan->jumlah;
 
         $pembayaran->update($validated);
-        $pembayaran->tagihan()->update(['status_tagihan' => 'lunas']);
+        $tagihan->update(['status_tagihan' => 'lunas']);
 
-        return to_route('tagihan.pembayaran.index', $pembayaran->tagihan)->with('success', 'Pembayaran berhasil diperbarui.');
+        return to_route('tagihan.pembayaran.index', $tagihan)->with('success', 'Pembayaran berhasil diperbarui.');
     }
 
-    public function destroy(Pembayaran $pembayaran): RedirectResponse
+    public function destroy(Tagihan $tagihan, Pembayaran $pembayaran): RedirectResponse
     {
         $pembayaran->delete();
 
-        return to_route('tagihan.pembayaran.index', $pembayaran->tagihan)->with('success', 'Pembayaran berhasil dihapus.');
+        return to_route('tagihan.pembayaran.index', $tagihan)->with('success', 'Pembayaran berhasil dihapus.');
     }
 
     /** @return array<string, array<int, mixed>> */

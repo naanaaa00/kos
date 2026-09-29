@@ -15,9 +15,8 @@ class RoleController extends Controller
     public function index(): Response
     {
         return Inertia::render('Roles/Index', [
-            'roles' => Role::query()->with('permissions')->orderBy('name')->get(),
+            'roles' => Role::query()->with('permissions')->withCount('users')->orderBy('name')->paginate(10),
             'permissions' => Permission::query()->orderBy('name')->pluck('name'),
-            'users' => User::query()->with('roles')->orderBy('name')->get(['id', 'name']),
         ]);
     }
 
@@ -35,7 +34,9 @@ class RoleController extends Controller
         ]);
         $role->syncPermissions($validated['permissions'] ?? []);
 
-        return to_route('roles.index')->with('success', 'Role berhasil dibuat.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Role berhasil dibuat.']);
+
+        return back();
     }
 
     public function update(Request $request, Role $role): RedirectResponse
@@ -55,7 +56,9 @@ class RoleController extends Controller
         $role->update(['name' => $validated['name']]);
         $role->syncPermissions($validated['permissions'] ?? []);
 
-        return to_route('roles.index')->with('success', 'Role berhasil diperbarui.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Role berhasil diperbarui.']);
+
+        return back();
     }
 
     public function destroy(Role $role): RedirectResponse
@@ -66,7 +69,9 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return to_route('roles.index')->with('success', 'Role berhasil dihapus.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Role berhasil dihapus.']);
+
+        return back();
     }
 
     public function updateUserRoles(Request $request, User $user): RedirectResponse
@@ -80,11 +85,15 @@ class RoleController extends Controller
             ->whereIn('name', $validated['roles'])
             ->whereHas('permissions', fn ($query) => $query->where('name', 'roles.manage'))
             ->exists()) {
-            return back()->withErrors(['roles' => 'Akun yang sedang digunakan harus tetap memiliki role pengelola akses.']);
+            Inertia::flash('toast', ['type' => 'error', 'message' => 'Akun yang sedang digunakan harus tetap memiliki role pengelola akses.']);
+
+            return back();
         }
 
         $user->syncRoles($validated['roles']);
 
-        return to_route('roles.index')->with('success', 'Role pengguna berhasil diperbarui.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Role pengguna berhasil diperbarui.']);
+
+        return back();
     }
 }

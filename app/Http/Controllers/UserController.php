@@ -9,219 +9,129 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request): Response
     {
         $currentUser = $request->user();
 
         $users = User::query()
-            ->with('detail')
+            ->with(['detail', 'roles'])
             ->when(
                 $currentUser->hasRole('penghuni'),
                 fn ($query) => $query->whereKey($currentUser->id)
             )
-            ->get();
+            ->paginate(10);
 
         return Inertia::render('Users/Index', [
             'users' => $users,
+            'roles' => Role::query()->orderBy('name')->pluck('name'),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request): Response
     {
-        if ($request->user()->hasRole('penghuni')) {
-            abort(403);
-        }
+        $this->abortWhenTenantActsOutsideOwnAccount($request);
 
         return Inertia::render('Users/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
-        if ($request->user()->hasRole('penghuni')) {
-            abort(403);
-        }
+        $this->abortWhenTenantActsOutsideOwnAccount($request);
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'no_hp' => [
-                'required',
-                'integer',
-                'digits_between:10,15',
-                'unique:users,no_hp',
-            ],
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-            ],
-        ]);
-
-        $user = User::create($validated);
-
+        $user = User::create($request->validate($this->storeRules()));
         $user->assignRole(config('permission.default_role'));
 
-        return to_route('users.index')
-            ->with('success', 'User berhasil dibuat.');
+        return to_route('users.index')->with('success', 'User berhasil dibuat.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Request $request, User $user): Response
     {
-        $currentUser = $request->user();
-
-        if (
-            $currentUser->hasRole('penghuni')
-            && $currentUser->id !== $user->id
-        ) {
-            abort(403);
-        }
+        $this->abortWhenTenantActsOutsideOwnAccount($request, $user);
 
         return Inertia::render('Users/Edit', [
             'user' => $user->load('detail'),
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(
-        Request $request,
-        User $user
-    ): RedirectResponse {
-        $currentUser = $request->user();
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        $this->abortWhenTenantActsOutsideOwnAccount($request, $user);
 
-        if (
-            $currentUser->hasRole('penghuni')
-            && $currentUser->id !== $user->id
-        ) {
-            abort(403);
-        }
+        $hasDetail = collect($request->only(['nama', 'nik', 'alamat', 'jenis_kelamin']))
+            ->contains(fn (mixed $value): bool => filled($value));
 
-        $hasDetail = collect(
-            $request->only([
-                'nama',
-                'nik',
-                'alamat',
-                'jenis_kelamin',
-            ])
-        )->contains(
-            fn (mixed $value): bool => filled($value)
-        );
-
-        $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-
-            'no_hp' => [
-                'required',
-                'integer',
-                'digits_between:10,15',
-                Rule::unique('users', 'no_hp')
-                    ->ignore($user),
-            ],
-
-            'password' => [
-                'nullable',
-                'string',
-                'min:8',
-            ],
-
-            'nama' => [
-                $hasDetail ? 'required' : 'nullable',
-                'string',
-                'max:100',
-            ],
-
-            'nik' => [
-                $hasDetail ? 'required' : 'nullable',
-                'digits:16',
-                Rule::unique('user_detail', 'nik')
-                    ->ignore($user->detail?->id),
-            ],
-
-            'alamat' => [
-                $hasDetail ? 'required' : 'nullable',
-                'string',
-            ],
-
-            'jenis_kelamin' => [
-                $hasDetail ? 'required' : 'nullable',
-                Rule::in(['L', 'P']),
-            ],
-        ]);
+        $validated = $request->validate($this->updateRules($user, $hasDetail));
 
         if (blank($validated['password'] ?? null)) {
             unset($validated['password']);
         }
 
-        DB::transaction(function () use (
-            $user,
-            $validated,
-            $hasDetail
-        ): void {
-            $user->update(
-                collect($validated)
-                    ->only([
-                        'name',
-                        'no_hp',
-                        'password',
-                    ])
-                    ->all()
-            );
+        DB::transaction(function () use ($user, $validated, $hasDetail): void {
+            $user->update(collect($validated)->only(['name', 'no_hp', 'password'])->all());
 
             if ($hasDetail) {
                 $user->detail()->updateOrCreate(
                     [],
-                    collect($validated)
-                        ->only([
-                            'nama',
-                            'nik',
-                            'alamat',
-                            'jenis_kelamin',
-                        ])
-                        ->all()
+                    collect($validated)->only(['nama', 'nik', 'alamat', 'jenis_kelamin'])->all()
                 );
             } elseif ($user->detail) {
                 $user->detail->delete();
             }
         });
 
-        return to_route('users.index')
-            ->with('success', 'User berhasil diperbarui.');
+        return to_route('users.index')->with('success', 'User berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(
-        Request $request,
-        User $user
-    ): RedirectResponse {
-        if ($request->user()->hasRole('penghuni')) {
-            abort(403);
-        }
+    public function destroy(Request $request, User $user): RedirectResponse
+    {
+        $this->abortWhenTenantActsOutsideOwnAccount($request);
 
         $user->delete();
 
-        return to_route('users.index')
-            ->with('success', 'User berhasil dihapus.');
+        return to_route('users.index')->with('success', 'User berhasil dihapus.');
+    }
+
+    /**
+     * Penghuni hanya boleh mengelola akunnya sendiri.
+     */
+    private function abortWhenTenantActsOutsideOwnAccount(Request $request, ?User $user = null): void
+    {
+        $currentUser = $request->user();
+
+        if ($currentUser->hasRole('penghuni') && ($user === null || $currentUser->isNot($user))) {
+            abort(403);
+        }
+    }
+
+    /** @return array<string, array<int, mixed>> */
+    private function storeRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', 'integer', 'digits_between:10,15', 'unique:users,no_hp'],
+            'password' => ['required', 'string', 'min:8'],
+        ];
+    }
+
+    /**
+     * @return array<string, array<int, mixed>>
+     */
+    private function updateRules(User $user, bool $hasDetail): array
+    {
+        $detailPresence = $hasDetail ? 'required' : 'nullable';
+
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', 'integer', 'digits_between:10,15', Rule::unique('users', 'no_hp')->ignore($user)],
+            'password' => ['nullable', 'string', 'min:8'],
+            'nama' => [$detailPresence, 'string', 'max:100'],
+            'nik' => [$detailPresence, 'digits:16', Rule::unique('user_detail', 'nik')->ignore($user->detail?->id)],
+            'alamat' => [$detailPresence, 'string'],
+            'jenis_kelamin' => [$detailPresence, Rule::in(['L', 'P'])],
+        ];
     }
 }
-

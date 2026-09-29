@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Kamar;
+use App\Models\Sewa;
+use App\Models\Tagihan;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -47,11 +51,6 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
-    // ..
-}
-
 function userWithPermissions(array $permissions): User
 {
     $role = Role::create([
@@ -70,4 +69,35 @@ function userWithPermissions(array $permissions): User
     $user->assignRole($role);
 
     return $user;
+}
+
+/**
+ * Buat penyewa, kamar, sewa, dan satu tagihan belum bayar yang jatuh tempo
+ * beberapa hari dari hari ini.
+ */
+function buatTagihanJatuhTempo(int $selisihHari, array $userAttributes = []): Tagihan
+{
+    static $urutan = 0;
+    $urutan++;
+
+    $penyewa = User::factory()->create([
+        'name' => 'Penghuni Test',
+        'no_hp' => 6281234567890 + $urutan,
+        ...$userAttributes,
+    ]);
+    $kamar = Kamar::create(['no_kamar' => 'A-'.$urutan, 'harga' => 1500000, 'fasilitas' => 'Wi-Fi', 'ketersediaan' => true]);
+    $sewa = Sewa::create([
+        'tanggal_mulai' => '2026-01-01',
+        'tanggal_selesai' => '2026-12-31',
+        'user_id' => $penyewa->id,
+        'kamar_id' => $kamar->id,
+    ]);
+
+    return Tagihan::create([
+        'tanggal' => '2026-01-01',
+        'jumlah' => 1500000,
+        'jatuh_tempo' => Carbon::today()->addDays($selisihHari)->toDateString(),
+        'status_tagihan' => 'belum_bayar',
+        'sewa_id' => $sewa->id,
+    ]);
 }

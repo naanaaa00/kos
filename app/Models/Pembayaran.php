@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['jumlah', 'tanggal_pembayaran', 'metode_pembayaran', 'tagihan_id'])]
+#[Fillable(['jumlah', 'tanggal_pembayaran', 'metode_pembayaran', 'tagihan_id', 'order_id', 'midtrans_status'])]
 class Pembayaran extends Model
 {
     protected $table = 'pembayaran';

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Midtrans\MidtransService;
+use App\Services\Midtrans\SnapMidtransService;
+use App\Services\WhatsApp\FonnteWhatsAppService;
+use App\Services\WhatsApp\WhatsAppService;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(WhatsAppService::class, FonnteWhatsAppService::class);
+        $this->app->bind(MidtransService::class, SnapMidtransService::class);
     }
 
     /**

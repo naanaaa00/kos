@@ -1,14 +1,38 @@
 <?php
 
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\MidtransNotificationController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SewaController;
+use App\Http\Controllers\TagihanBayarController;
+use App\Http\Controllers\TagihanBayarSelesaiController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\TagihanWaReminderController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\ValidatePayLinkSignature;
+use App\Models\Tagihan;
+use App\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'welcome')->name('home');
+Route::get('/', WelcomeController::class)->name('home');
+
+// Halaman publik untuk penyewa (dibuka dari link di pesan WhatsApp).
+// 'bayar/selesai' didaftarkan sebelum 'bayar/{tagihan}' agar tidak
+// tertangkap sebagai parameter {tagihan}.
+Route::get('bayar/selesai', TagihanBayarSelesaiController::class)
+    ->name('tagihan.bayar.selesai');
+Route::get('bayar/{tagihan}', TagihanBayarController::class)
+    ->middleware(ValidatePayLinkSignature::class)
+    ->name('tagihan.bayar.show');
+Route::get('bayar/{tagihan}/lunas', function (Tagihan $tagihan) {
+    return response()->view('bayar.sudah-lunas', ['tagihan' => $tagihan]);
+})->name('tagihan.bayar.lunas');
+
+// Webhook Midtrans: tanpa auth, signature diverifikasi di dalam controller.
+// Path mengikuti URL yang terdaftar di dashboard Midtrans.
+Route::post('api/webhooks/midtrans', MidtransNotificationController::class)
+    ->name('midtrans.notification');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
@@ -68,6 +92,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middlewareFor('edit', 'permission:tagihan.update')
         ->middlewareFor('update', 'permission:tagihan.update')
         ->middlewareFor('destroy', 'permission:tagihan.delete');
+
+    Route::post('tagihan/{tagihan}/wa-reminder', TagihanWaReminderController::class)
+        ->middleware('permission:tagihan.update')
+        ->name('tagihan.wa-reminder.store');
 
     Route::resource('tagihan.pembayaran', PembayaranController::class)
         ->except(['index', 'show'])

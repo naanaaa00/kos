@@ -21,6 +21,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        $middleware->validateCsrfTokens(except: ['api/webhooks/midtrans']);
+
         $middleware->alias([
             'permission' => PermissionMiddleware::class,
             'role' => RoleMiddleware::class,
@@ -39,3 +41,14 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
     })->create();
+
+// Di Vercel hanya /tmp yang writable, arahkan storage ke sana.
+if (getenv('VERCEL') === '1') {
+    $app->useStoragePath(getenv('APP_STORAGE') ?: '/tmp/storage');
+
+    foreach (['framework/views', 'framework/cache', 'framework/sessions', 'app/public', 'logs'] as $dir) {
+        @mkdir($app->storagePath($dir), 0777, true);
+    }
+}
+
+return $app;

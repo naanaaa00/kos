@@ -16,9 +16,19 @@ class TagihanController extends Controller
     {
         abort_unless($request->user()->can('tagihan.update') || $sewa->user_id === $request->user()->id, 403);
 
+        $validated = $request->validate([
+            'status' => ['nullable', Rule::in(['belum_bayar', 'lunas', 'lewat_tempo'])],
+        ]);
+
         return Inertia::render('Tagihan/Index', [
             'sewa' => $sewa->load(['user', 'room']),
-            'tagihans' => $sewa->tagihans()->with('payment')->latest('id')->get(),
+            'tagihans' => $sewa->tagihans()
+                ->with('payment')
+                ->when($validated['status'] ?? null, fn ($query, string $status) => $query->where('status_tagihan', $status))
+                ->latest('id')
+                ->paginate(10)
+                ->withQueryString(),
+            'filters' => ['status' => $validated['status'] ?? null],
         ]);
     }
 
@@ -32,8 +42,6 @@ class TagihanController extends Controller
     public function store(Request $request, Sewa $sewa): RedirectResponse
     {
         $validated = $request->validate($this->rules());
-        $validated['tanggal'] = $sewa->tanggal_mulai->toDateString();
-        $validated['jatuh_tempo'] = $sewa->tanggal_mulai->toDateString();
         $validated['jumlah'] = $this->calculateTotal($sewa->room->harga, $validated['discount'], $validated['denda']);
 
         $sewa->tagihans()->create($validated);
@@ -41,18 +49,16 @@ class TagihanController extends Controller
         return to_route('sewa.tagihan.index', $sewa)->with('success', 'Tagihan berhasil dibuat.');
     }
 
-    public function edit(string $tagihan): Response
+    // Rute nested resource menyuntikkan {sewa} sebelum {tagihan}, jadi urutan parameter harus sesuai.
+    public function edit(Sewa $sewa, Tagihan $tagihan): Response
     {
-        $tagihan = Tagihan::with('sewa.user', 'sewa.room')->findOrFail($tagihan);
-
         return Inertia::render('Tagihan/Edit', [
-            'tagihan' => $tagihan,
+            'tagihan' => $tagihan->load('sewa.user', 'sewa.room'),
         ]);
     }
 
-    public function update(Request $request, string $tagihan): RedirectResponse
+    public function update(Request $request, Sewa $sewa, Tagihan $tagihan): RedirectResponse
     {
-        $tagihan = Tagihan::with('sewa.room')->findOrFail($tagihan);
         $validated = $request->validate($this->rules());
         $validated['jumlah'] = $this->calculateTotal($tagihan->sewa->room->harga, $validated['discount'], $validated['denda']);
 
@@ -62,7 +68,7 @@ class TagihanController extends Controller
             ->with('success', 'Tagihan berhasil diperbarui.');
     }
 
-    public function destroy(Tagihan $tagihan): RedirectResponse
+    public function destroy(Sewa $sewa, Tagihan $tagihan): RedirectResponse
     {
         $tagihan->delete();
 
