@@ -27,9 +27,8 @@ export default defineConfig({
         wayfinder({
             formVariants: true,
             // Di Vercel tidak ada PHP — pakai file hasil generate yang di-commit.
-            ...(process.env.VERCEL
-                ? { command: 'node -e "process.exit(0)"' }
-                : {}),
+            // `true` mengabaikan flag tambahan (--with-form) yang ditempel plugin.
+            ...(process.env.VERCEL ? { command: 'true' } : {}),
         }),
     ]),
     server: {
