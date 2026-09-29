@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/TagihanWaReminderController.php:16
  * @route '/tagihan/{tagihan}/wa-reminder'
  */
-export const store = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
  * @see app/Http/Controllers/TagihanWaReminderController.php:16
  * @route '/tagihan/{tagihan}/wa-reminder'
  */
-store.url = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tagihan: args }
     }
@@ -52,7 +52,7 @@ store.url = (args: { tagihan: string | number | { id: string | number } } | [tag
  * @see app/Http/Controllers/TagihanWaReminderController.php:16
  * @route '/tagihan/{tagihan}/wa-reminder'
  */
-store.post = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ store.post = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/TagihanWaReminderController.php:16
  * @route '/tagihan/{tagihan}/wa-reminder'
  */
-    const storeForm = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ store.post = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/TagihanWaReminderController.php:16
  * @route '/tagihan/{tagihan}/wa-reminder'
  */
-        storeForm.post = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })

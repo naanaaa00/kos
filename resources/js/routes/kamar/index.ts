@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-export const edit = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-edit.url = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { kamar: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { kamar: string | number | { id: string | number } } | [kamar:
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-edit.get = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { kamar: string | number | { id: string | number } } | [kamar:
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-edit.head = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { kamar: string | number | { id: string | number } } | [kamar
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-    const editForm = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { kamar: string | number | { id: string | number } } | [kamar
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-        editForm.get = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { kamar: string | number | { id: string | number } } | [kamar
  * @see app/Http/Controllers/KamarController.php:57
  * @route '/kamar/{kamar}/edit'
  */
-        editForm.head = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { kamar: string | number | { id: string | number } } | [kamar
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-export const update = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-update.url = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { kamar: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { kamar: string | number | { id: string | number } } | [kama
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-update.put = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { kamar: string | number | { id: string | number } } | [kama
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-update.patch = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { kamar: string | number | { id: string | number } } | [ka
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-    const updateForm = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { kamar: string | number | { id: string | number } } | [ka
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-        updateForm.put = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { kamar: string | number | { id: string | number } } | [ka
  * @see app/Http/Controllers/KamarController.php:65
  * @route '/kamar/{kamar}'
  */
-        updateForm.patch = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { kamar: string | number | { id: string | number } } | [ka
  * @see app/Http/Controllers/KamarController.php:72
  * @route '/kamar/{kamar}'
  */
-export const destroy = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/KamarController.php:72
  * @route '/kamar/{kamar}'
  */
-destroy.url = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { kamar: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { kamar: string | number | { id: string | number } } | [kam
  * @see app/Http/Controllers/KamarController.php:72
  * @route '/kamar/{kamar}'
  */
-destroy.delete = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { kamar: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/KamarController.php:72
  * @route '/kamar/{kamar}'
  */
-    const destroyForm = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { kamar: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/KamarController.php:72
  * @route '/kamar/{kamar}'
  */
-        destroyForm.delete = (args: { kamar: string | number | { id: string | number } } | [kamar: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { kamar: number | { id: number } } | [kamar: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

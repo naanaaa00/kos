@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-export const edit = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-edit.url = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { sewa: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { sewa: string | number | { id: string | number } } | [sewa: s
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-edit.get = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { sewa: string | number | { id: string | number } } | [sewa: s
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-edit.head = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-    const editForm = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-        editForm.get = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/SewaController.php:72
  * @route '/sewa/{sewa}/edit'
  */
-        editForm.head = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-export const update = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-update.url = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { sewa: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-update.put = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-update.patch = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { sewa: string | number | { id: string | number } } | [sew
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-    const updateForm = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { sewa: string | number | { id: string | number } } | [sew
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-        updateForm.put = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { sewa: string | number | { id: string | number } } | [sew
  * @see app/Http/Controllers/SewaController.php:85
  * @route '/sewa/{sewa}'
  */
-        updateForm.patch = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { sewa: string | number | { id: string | number } } | [sew
  * @see app/Http/Controllers/SewaController.php:112
  * @route '/sewa/{sewa}'
  */
-export const destroy = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/SewaController.php:112
  * @route '/sewa/{sewa}'
  */
-destroy.url = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { sewa: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { sewa: string | number | { id: string | number } } | [sewa
  * @see app/Http/Controllers/SewaController.php:112
  * @route '/sewa/{sewa}'
  */
-destroy.delete = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { sewa: string | number | { id: string | number } } | [s
  * @see app/Http/Controllers/SewaController.php:112
  * @route '/sewa/{sewa}'
  */
-    const destroyForm = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { sewa: string | number | { id: string | number } } | [s
  * @see app/Http/Controllers/SewaController.php:112
  * @route '/sewa/{sewa}'
  */
-        destroyForm.delete = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

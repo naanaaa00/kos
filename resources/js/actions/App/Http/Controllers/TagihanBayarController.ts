@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-const TagihanBayarController = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+const TagihanBayarController = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: TagihanBayarController.url(args, options),
     method: 'get',
 })
@@ -19,7 +19,7 @@ TagihanBayarController.definition = {
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-TagihanBayarController.url = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+TagihanBayarController.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tagihan: args }
     }
@@ -52,7 +52,7 @@ TagihanBayarController.url = (args: { tagihan: string | number | { id: string | 
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-TagihanBayarController.get = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+TagihanBayarController.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: TagihanBayarController.url(args, options),
     method: 'get',
 })
@@ -61,7 +61,7 @@ TagihanBayarController.get = (args: { tagihan: string | number | { id: string | 
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-TagihanBayarController.head = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+TagihanBayarController.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: TagihanBayarController.url(args, options),
     method: 'head',
 })
@@ -71,7 +71,7 @@ TagihanBayarController.head = (args: { tagihan: string | number | { id: string |
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-    const TagihanBayarControllerForm = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const TagihanBayarControllerForm = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: TagihanBayarController.url(args, options),
         method: 'get',
     })
@@ -81,7 +81,7 @@ TagihanBayarController.head = (args: { tagihan: string | number | { id: string |
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-        TagihanBayarControllerForm.get = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        TagihanBayarControllerForm.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: TagihanBayarController.url(args, options),
             method: 'get',
         })
@@ -90,7 +90,7 @@ TagihanBayarController.head = (args: { tagihan: string | number | { id: string |
  * @see app/Http/Controllers/TagihanBayarController.php:16
  * @route '/bayar/{tagihan}'
  */
-        TagihanBayarControllerForm.head = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        TagihanBayarControllerForm.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: TagihanBayarController.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-export const index = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const index = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(args, options),
     method: 'get',
 })
@@ -19,7 +19,7 @@ index.definition = {
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-index.url = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+index.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tagihan: args }
     }
@@ -52,7 +52,7 @@ index.url = (args: { tagihan: string | number | { id: string | number } } | [tag
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-index.get = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+index.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(args, options),
     method: 'get',
 })
@@ -61,7 +61,7 @@ index.get = (args: { tagihan: string | number | { id: string | number } } | [tag
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-index.head = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+index.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(args, options),
     method: 'head',
 })
@@ -71,7 +71,7 @@ index.head = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-    const indexForm = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const indexForm = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: index.url(args, options),
         method: 'get',
     })
@@ -81,7 +81,7 @@ index.head = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-        indexForm.get = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        indexForm.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(args, options),
             method: 'get',
         })
@@ -90,7 +90,7 @@ index.head = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:16
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-        indexForm.head = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        indexForm.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -106,7 +106,7 @@ index.head = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-export const create = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const create = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(args, options),
     method: 'get',
 })
@@ -121,7 +121,7 @@ create.definition = {
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-create.url = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+create.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tagihan: args }
     }
@@ -154,7 +154,7 @@ create.url = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-create.get = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+create.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(args, options),
     method: 'get',
 })
@@ -163,7 +163,7 @@ create.get = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-create.head = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+create.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: create.url(args, options),
     method: 'head',
 })
@@ -173,7 +173,7 @@ create.head = (args: { tagihan: string | number | { id: string | number } } | [t
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-    const createForm = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const createForm = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: create.url(args, options),
         method: 'get',
     })
@@ -183,7 +183,7 @@ create.head = (args: { tagihan: string | number | { id: string | number } } | [t
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-        createForm.get = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        createForm.get = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: create.url(args, options),
             method: 'get',
         })
@@ -192,7 +192,7 @@ create.head = (args: { tagihan: string | number | { id: string | number } } | [t
  * @see app/Http/Controllers/PembayaranController.php:29
  * @route '/tagihan/{tagihan}/pembayaran/create'
  */
-        createForm.head = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        createForm.head = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: create.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -208,7 +208,7 @@ create.head = (args: { tagihan: string | number | { id: string | number } } | [t
  * @see app/Http/Controllers/PembayaranController.php:36
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-export const store = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -223,7 +223,7 @@ store.definition = {
  * @see app/Http/Controllers/PembayaranController.php:36
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-store.url = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tagihan: args }
     }
@@ -256,7 +256,7 @@ store.url = (args: { tagihan: string | number | { id: string | number } } | [tag
  * @see app/Http/Controllers/PembayaranController.php:36
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-store.post = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -266,7 +266,7 @@ store.post = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:36
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-    const storeForm = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -276,7 +276,7 @@ store.post = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:36
  * @route '/tagihan/{tagihan}/pembayaran'
  */
-        storeForm.post = (args: { tagihan: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { tagihan: number | { id: number } } | [tagihan: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })
@@ -287,7 +287,7 @@ store.post = (args: { tagihan: string | number | { id: string | number } } | [ta
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-export const edit = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -302,7 +302,7 @@ edit.definition = {
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-edit.url = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+edit.url = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     tagihan: args[0],
@@ -332,7 +332,7 @@ edit.url = (args: { tagihan: string | number | { id: string | number }, pembayar
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-edit.get = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -341,7 +341,7 @@ edit.get = (args: { tagihan: string | number | { id: string | number }, pembayar
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-edit.head = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -351,7 +351,7 @@ edit.head = (args: { tagihan: string | number | { id: string | number }, pembaya
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-    const editForm = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -361,7 +361,7 @@ edit.head = (args: { tagihan: string | number | { id: string | number }, pembaya
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-        editForm.get = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -370,7 +370,7 @@ edit.head = (args: { tagihan: string | number | { id: string | number }, pembaya
  * @see app/Http/Controllers/PembayaranController.php:53
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}/edit'
  */
-        editForm.head = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -386,7 +386,7 @@ edit.head = (args: { tagihan: string | number | { id: string | number }, pembaya
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-export const update = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -401,7 +401,7 @@ update.definition = {
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-update.url = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+update.url = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     tagihan: args[0],
@@ -431,7 +431,7 @@ update.url = (args: { tagihan: string | number | { id: string | number }, pembay
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-update.put = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -440,7 +440,7 @@ update.put = (args: { tagihan: string | number | { id: string | number }, pembay
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-update.patch = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -450,7 +450,7 @@ update.patch = (args: { tagihan: string | number | { id: string | number }, pemb
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-    const updateForm = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -465,7 +465,7 @@ update.patch = (args: { tagihan: string | number | { id: string | number }, pemb
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-        updateForm.put = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -479,7 +479,7 @@ update.patch = (args: { tagihan: string | number | { id: string | number }, pemb
  * @see app/Http/Controllers/PembayaranController.php:58
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-        updateForm.patch = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -495,7 +495,7 @@ update.patch = (args: { tagihan: string | number | { id: string | number }, pemb
  * @see app/Http/Controllers/PembayaranController.php:69
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-export const destroy = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -510,7 +510,7 @@ destroy.definition = {
  * @see app/Http/Controllers/PembayaranController.php:69
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-destroy.url = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+destroy.url = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     tagihan: args[0],
@@ -540,7 +540,7 @@ destroy.url = (args: { tagihan: string | number | { id: string | number }, pemba
  * @see app/Http/Controllers/PembayaranController.php:69
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-destroy.delete = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -550,7 +550,7 @@ destroy.delete = (args: { tagihan: string | number | { id: string | number }, pe
  * @see app/Http/Controllers/PembayaranController.php:69
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-    const destroyForm = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -565,7 +565,7 @@ destroy.delete = (args: { tagihan: string | number | { id: string | number }, pe
  * @see app/Http/Controllers/PembayaranController.php:69
  * @route '/tagihan/{tagihan}/pembayaran/{pembayaran}'
  */
-        destroyForm.delete = (args: { tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } } | [tagihan: string | number | { id: string | number }, pembayaran: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { tagihan: number | { id: number }, pembayaran: number | { id: number } } | [tagihan: number | { id: number }, pembayaran: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

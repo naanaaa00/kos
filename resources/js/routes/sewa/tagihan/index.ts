@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-export const index = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const index = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(args, options),
     method: 'get',
 })
@@ -19,7 +19,7 @@ index.definition = {
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-index.url = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+index.url = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { sewa: args }
     }
@@ -52,7 +52,7 @@ index.url = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-index.get = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+index.get = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(args, options),
     method: 'get',
 })
@@ -61,7 +61,7 @@ index.get = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-index.head = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+index.head = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(args, options),
     method: 'head',
 })
@@ -71,7 +71,7 @@ index.head = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-    const indexForm = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const indexForm = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: index.url(args, options),
         method: 'get',
     })
@@ -81,7 +81,7 @@ index.head = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-        indexForm.get = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        indexForm.get = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(args, options),
             method: 'get',
         })
@@ -90,7 +90,7 @@ index.head = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:15
  * @route '/sewa/{sewa}/tagihan'
  */
-        indexForm.head = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        indexForm.head = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -106,7 +106,7 @@ index.head = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-export const create = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const create = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(args, options),
     method: 'get',
 })
@@ -121,7 +121,7 @@ create.definition = {
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-create.url = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+create.url = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { sewa: args }
     }
@@ -154,7 +154,7 @@ create.url = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-create.get = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+create.get = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(args, options),
     method: 'get',
 })
@@ -163,7 +163,7 @@ create.get = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-create.head = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+create.head = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: create.url(args, options),
     method: 'head',
 })
@@ -173,7 +173,7 @@ create.head = (args: { sewa: string | number | { id: string | number } } | [sewa
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-    const createForm = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const createForm = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: create.url(args, options),
         method: 'get',
     })
@@ -183,7 +183,7 @@ create.head = (args: { sewa: string | number | { id: string | number } } | [sewa
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-        createForm.get = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        createForm.get = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: create.url(args, options),
             method: 'get',
         })
@@ -192,7 +192,7 @@ create.head = (args: { sewa: string | number | { id: string | number } } | [sewa
  * @see app/Http/Controllers/TagihanController.php:35
  * @route '/sewa/{sewa}/tagihan/create'
  */
-        createForm.head = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        createForm.head = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: create.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -208,7 +208,7 @@ create.head = (args: { sewa: string | number | { id: string | number } } | [sewa
  * @see app/Http/Controllers/TagihanController.php:42
  * @route '/sewa/{sewa}/tagihan'
  */
-export const store = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -223,7 +223,7 @@ store.definition = {
  * @see app/Http/Controllers/TagihanController.php:42
  * @route '/sewa/{sewa}/tagihan'
  */
-store.url = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { sewa: args }
     }
@@ -256,7 +256,7 @@ store.url = (args: { sewa: string | number | { id: string | number } } | [sewa: 
  * @see app/Http/Controllers/TagihanController.php:42
  * @route '/sewa/{sewa}/tagihan'
  */
-store.post = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -266,7 +266,7 @@ store.post = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:42
  * @route '/sewa/{sewa}/tagihan'
  */
-    const storeForm = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -276,7 +276,7 @@ store.post = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:42
  * @route '/sewa/{sewa}/tagihan'
  */
-        storeForm.post = (args: { sewa: string | number | { id: string | number } } | [sewa: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { sewa: number | { id: number } } | [sewa: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })
@@ -287,7 +287,7 @@ store.post = (args: { sewa: string | number | { id: string | number } } | [sewa:
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-export const edit = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -302,7 +302,7 @@ edit.definition = {
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-edit.url = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+edit.url = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     sewa: args[0],
@@ -332,7 +332,7 @@ edit.url = (args: { sewa: string | number | { id: string | number }, tagihan: st
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-edit.get = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -341,7 +341,7 @@ edit.get = (args: { sewa: string | number | { id: string | number }, tagihan: st
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-edit.head = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -351,7 +351,7 @@ edit.head = (args: { sewa: string | number | { id: string | number }, tagihan: s
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-    const editForm = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -361,7 +361,7 @@ edit.head = (args: { sewa: string | number | { id: string | number }, tagihan: s
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-        editForm.get = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -370,7 +370,7 @@ edit.head = (args: { sewa: string | number | { id: string | number }, tagihan: s
  * @see app/Http/Controllers/TagihanController.php:53
  * @route '/sewa/{sewa}/tagihan/{tagihan}/edit'
  */
-        editForm.head = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -386,7 +386,7 @@ edit.head = (args: { sewa: string | number | { id: string | number }, tagihan: s
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-export const update = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -401,7 +401,7 @@ update.definition = {
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-update.url = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+update.url = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     sewa: args[0],
@@ -431,7 +431,7 @@ update.url = (args: { sewa: string | number | { id: string | number }, tagihan: 
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-update.put = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -440,7 +440,7 @@ update.put = (args: { sewa: string | number | { id: string | number }, tagihan: 
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-update.patch = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -450,7 +450,7 @@ update.patch = (args: { sewa: string | number | { id: string | number }, tagihan
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-    const updateForm = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -465,7 +465,7 @@ update.patch = (args: { sewa: string | number | { id: string | number }, tagihan
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-        updateForm.put = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -479,7 +479,7 @@ update.patch = (args: { sewa: string | number | { id: string | number }, tagihan
  * @see app/Http/Controllers/TagihanController.php:60
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-        updateForm.patch = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -495,7 +495,7 @@ update.patch = (args: { sewa: string | number | { id: string | number }, tagihan
  * @see app/Http/Controllers/TagihanController.php:71
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-export const destroy = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -510,7 +510,7 @@ destroy.definition = {
  * @see app/Http/Controllers/TagihanController.php:71
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-destroy.url = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+destroy.url = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     sewa: args[0],
@@ -540,7 +540,7 @@ destroy.url = (args: { sewa: string | number | { id: string | number }, tagihan:
  * @see app/Http/Controllers/TagihanController.php:71
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-destroy.delete = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -550,7 +550,7 @@ destroy.delete = (args: { sewa: string | number | { id: string | number }, tagih
  * @see app/Http/Controllers/TagihanController.php:71
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-    const destroyForm = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -565,7 +565,7 @@ destroy.delete = (args: { sewa: string | number | { id: string | number }, tagih
  * @see app/Http/Controllers/TagihanController.php:71
  * @route '/sewa/{sewa}/tagihan/{tagihan}'
  */
-        destroyForm.delete = (args: { sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } } | [sewa: string | number | { id: string | number }, tagihan: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { sewa: number | { id: number }, tagihan: number | { id: number } } | [sewa: number | { id: number }, tagihan: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

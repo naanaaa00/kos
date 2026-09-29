@@ -84,20 +84,41 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => env('DB_CHARSET', 'utf8'),
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'search_path' => 'public',
-            'sslmode' => env('DB_SSLMODE', 'prefer'),
-        ],
+        'pgsql' => (function () {
+            $config = [
+                'driver' => 'pgsql',
+                'url' => env('DB_URL'),
+                'host' => env('DB_HOST', '127.0.0.1'),
+                'port' => env('DB_PORT', '5432'),
+                'database' => env('DB_DATABASE', 'laravel'),
+                'username' => env('DB_USERNAME', 'root'),
+                'password' => env('DB_PASSWORD', ''),
+                'charset' => env('DB_CHARSET', 'utf8'),
+                'prefix' => '',
+                'prefix_indexes' => true,
+                'search_path' => 'public',
+                'sslmode' => env('DB_SSLMODE', 'prefer'),
+            ];
+
+            // Neon: serverless runtimes ship an old libpq without SNI support, so the
+            // Neon endpoint ID (first part of the host) must be passed explicitly.
+            $url = $config['url'] ?? null;
+
+            if ($url && Str::contains($url, 'neon.tech')) {
+                $parts = parse_url($url);
+                $host = $parts['host'] ?? '';
+                $endpoint = Str::before($host, '.');
+
+                $config['url'] = null;
+                $config['host'] = $host." options='endpoint={$endpoint}'";
+                $config['port'] = $parts['port'] ?? $config['port'];
+                $config['database'] = ltrim($parts['path'] ?? '', '/');
+                $config['username'] = urldecode($parts['user'] ?? $config['username']);
+                $config['password'] = urldecode($parts['pass'] ?? $config['password']);
+            }
+
+            return $config;
+        })(),
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
